@@ -1,0 +1,136 @@
+<div class="container-fluid">
+    <p>Data received from Child Comp: {{profileName}}</p>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" data-toggle="tab" href="#basic-databinding" role="tab"
+          aria-controls="basic-databinding" aria-selected="true">Basic Data Binding</a>
+        <a class="nav-item nav-link" data-toggle="tab" href="#cpb-tab" role="tab" aria-controls="cpb-tab"
+          aria-selected="false">Custom Prop Binding</a>
+        <a class="nav-item nav-link" data-toggle="tab" href="#ceb-tab" role="tab" aria-controls="ceb-tab"
+          aria-selected="false">Child to Parent Comp Communication</a>
+        <a class="nav-item nav-link" data-toggle="tab" href="#directives-tab" role="tab" aria-controls="directives-tab"
+          aria-selected="false">Directives</a>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+  
+      <div class="tab-pane fade show active" id="basic-databinding" role="tabpanel"
+        aria-labelledby="basic-databinding-tab">
+        <h2>Basic Data Binding</h2>
+        <h3>String Interpolation</h3>
+        <p>App name is : {{appName}}</p>
+        <p>Exp = : {{exp}}</p>
+        <p title="{{appName}}">Mouse over to see this</p>
+        <input type="text" value="{{appName}}">
+
+        <hr>
+        <h3>Property Binding</h3>
+        <p [title]="appName">Mouse over to see company name</p>
+        <input type="text" [value]='companyName'>
+        <p class="greenText">This works</p>
+        <p [ngClass]="{ 'greenText': isAuth()}">Will it work</p>
+
+        <hr>
+        <h3>Event Binding</h3>
+        <!-- <button type="button" (click)='clickHandler($event)'>Click Me</button> -->
+        <!--Changing the button lable and disable it on click-->
+        <button (click)="setSaving($event.target, 'saving')">save</button>
+
+        <hr>
+        <h3>Two Way Binding</h3>
+        <p>{{courseName}}</p>
+        <input type="text" [value]='courseName'>
+        <br>
+        <input type="text" [(ngModel)]='courseName'>
+
+      </div>
+  
+      <div class="tab-pane fade" id="cpb-tab" role="tabpanel" aria-labelledby="cpb-tab-tab">
+        <h2>Custom Property Binding -- Parent to Child Comp Communication</h2>
+        <!--step 2 : pass the data from parent comp thru the custom property-->
+        <app-cpb></app-cpb>
+        <app-cpb [age]='12'></app-cpb>
+        <app-cpb [age]='52'></app-cpb>
+        <app-cpb [age]='90'></app-cpb>
+        <app-cpb [age]='exp'></app-cpb>
+  
+  
+      </div>
+  
+      <div class="tab-pane fade" id="ceb-tab" role="tabpanel" aria-labelledby="ceb-tab-tab">
+        <h2>Child to Parent Comp Communication</h2>
+        <!--step 5 in CEB-->
+        <app-ceb (profileLoaded)='profileLoadedHandler($event)'></app-ceb>
+      </div>
+  
+      <div class="tab-pane fade" id="directives-tab" role="tabpanel" aria-labelledby="directives-tab">
+        <h2>Directives</h2>
+
+
+        <!--Implimetation of else condition using ngIf-->
+
+        <h3>Structural Directives</h3>
+        <h4>*ngIf</h4>
+        <div class="alert alert-success" *ngIf="isLoggedIn;else notAuthDiv">
+          User Logged In...
+        </div>
+          
+        <ng-template #notAuthDiv>
+          <div class="alert alert-danger">
+            Pls Login.
+          </div>
+        </ng-template>
+        
+        <!--Implitation of finding index of the elements-->
+
+
+        <h4>*ngFor</h4>
+        <ul>
+          <li *ngFor="let skill of skillsList;let indexofelement=index;">
+            ngFor index: {{indexofelement}} value: {{skill}}
+          </li>
+        </ul>
+
+        <!--Implimentation of ngSwitch-->
+
+
+        <body ng-app="">
+
+          My favorite topic is:
+          <select ng-model="myVar">
+            <option value="html">HTML
+            <option value="css">CSS
+            <option value="js">JS
+          </select>
+          
+          <hr>
+          <div ng-switch="myVar">
+            <div ng-switch-when="html">
+               <h1>HTML</h1>
+               <p>You are an expert in HTML.</p>
+            </div>
+            <div ng-switch-when="css">
+               <h1>CSS</h1>
+               <p>You are an expert in CSS.</p>
+            </div>
+            <div ng-switch-when="js">
+               <h1>JS</h1>
+               <p>You are an expert in JS.</p>
+            </div>
+            <div ng-switch-default>
+               <h1>Switch</h1>
+               <p>Select topic from the dropdown, to switch the content of this DIV.</p>
+            </div>
+          </div>
+          <hr>
+          
+          <p>The ng-switch directive hides and shows HTML sections depending on a certain value.</p>
+          
+          </body>
+
+      </div>
+  
+  
+    </div>
+
+  </div>
